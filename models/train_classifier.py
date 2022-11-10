@@ -76,7 +76,6 @@ def build_model():
         estimator=pipeline, 
         param_grid=parameters, 
         scoring=mean_f1_score, 
-        n_jobs=-1, 
         cv=3, 
         verbose=1,
     )
