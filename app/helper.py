@@ -4,18 +4,21 @@ from tokenizers import tokenize_with_lemma
 
 
 def count_genres(df):
+    """Count the number of occurrences of genres"""
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     return genre_counts, genre_names
 
 
 def count_categories(df):
+    """Count the number of occurrences of categories"""
     categories = df.iloc[:, 4:]
     categories_totals = categories.sum().rename('totals').reset_index().sort_values(by='totals')    
     return categories_totals.totals, categories_totals['index']
 
 
 def words_by_category(df, categories):
+    """Get the most frequent words by category"""
     top_words_by_category = []
     for i, column in enumerate(list(categories)):
         messages = df.loc[df[column] > 0].sample(n=500).message.apply(tokenize_with_lemma)

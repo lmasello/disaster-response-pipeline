@@ -11,6 +11,7 @@ nltk.download('omw-1.4')
 
 
 def tokenize(text):
+    """Tokenize a given message removing stop words"""
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     stop_words = stopwords.words("english")
     
@@ -30,12 +31,14 @@ def tokenize(text):
 
 
 def tokenize_with_lemma(text):
+    """Tokenize a message with a lemmatizer"""
     lemmatizer = WordNetLemmatizer()
     tokens = tokenize(text)
     return [lemmatizer.lemmatize(word) for word in tokens]
 
 
 def tokenize_with_stem(text):
+    """Tokenize a message with a stemmer"""
     stemmer = PorterStemmer()
     tokens = tokenize(text)
     return [stemmer.stem(word) for word in tokens]   

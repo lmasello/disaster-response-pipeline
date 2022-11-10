@@ -1,4 +1,5 @@
 def dropdown_by_category(top_categories):
+    """Generates the structure needed for a Plotly dropdown"""
     return list([dict(
         type='dropdown',
         active=0,
