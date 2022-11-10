@@ -5,12 +5,14 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    """Load disaster messages and categories and returns a merged dataframe with them"""
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     return pd.merge(messages, categories, on='id')
 
 
 def clean_data(df):
+    """Clean the raw data and drop duplicates"""
     categories = df.categories.str.split(';', expand=True)
     row = categories.iloc[0]
     category_colnames = row.str.slice(start=0, stop=-2)
@@ -29,6 +31,7 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+    """Save the resulting dataframe into a sqlite database"""
     engine = create_engine(f'sqlite:///{database_filename}')
     table_name = database_filename.split('/')[1].split('.')[0]
     return df.to_sql(table_name, engine, index=False)
