@@ -25,6 +25,7 @@ nltk.download('words')
 
 
 def load_data(database_filepath):
+    """Load data stored in a sqlite database and return the features and target categories"""
     engine = create_engine(f'sqlite:///{database_filepath}')
     table_name = database_filepath.split('/')[1].split('.')[0]
     df = pd.read_sql(table_name, engine, )
@@ -34,6 +35,7 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """Tokenize a message and return the stemmed version of it"""
     # get list of all urls using regex
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
@@ -53,6 +55,7 @@ def tokenize(text):
 
 
 def build_model():
+    """Build a machine learning pipeline with the feature transformation and modeling"""
     feature_transformation = FeatureUnion([
         ('text_pipeline', Pipeline([
             ('bag_of_words', CountVectorizer(tokenizer=tokenize)),
@@ -82,6 +85,7 @@ def build_model():
 
 
 def evaluate_model(model, X_test, y_test, category_names):
+    """Print out performance metrics of the model"""
     y_test_pred = model.predict(X_test)
     display_results(y_test, y_test_pred, category_names)
     print('Overall scores')
@@ -89,6 +93,7 @@ def evaluate_model(model, X_test, y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """Save the model to the specified path using pickle"""
     with open(model_filepath,'wb') as file:
         pickle.dump(model, file)
 

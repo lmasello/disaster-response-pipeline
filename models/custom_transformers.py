@@ -10,6 +10,7 @@ nltk.download('wordnet')
 
 
 class TextLengthExtractor(BaseEstimator, TransformerMixin):
+    """Extract the length of a given message"""
     def fit(self, X, y=None):
         return self
 
@@ -18,6 +19,7 @@ class TextLengthExtractor(BaseEstimator, TransformerMixin):
 
     
 class StartingVerbExtractor(BaseEstimator, TransformerMixin):
+    """Determine whether a message starts with a verb or not"""
     def starting_verb(self, text):
         sentence_list = nltk.sent_tokenize(text)
         for sentence in sentence_list:

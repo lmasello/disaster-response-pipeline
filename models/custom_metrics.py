@@ -16,14 +16,17 @@ def mean_score(scoring, y_true, y_pred, **kwargs):
 
 
 def mean_f1(y_true, y_pred):
+    """Compute the mean f1 score over the target categories"""
     return mean_score(f1_score, y_true, y_pred, average='micro')
 
 
 def mean_precision(y_true, y_pred):
+    """Compute the mean precision score over the target categories"""
     return mean_score(precision_score, y_true, y_pred, average='micro')
     
     
 def mean_recall(y_true, y_pred):
+    """Compute the mean recall score over the target categories"""
     return mean_score(recall_score, y_true, y_pred, average='micro')        
 
 
